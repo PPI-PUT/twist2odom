@@ -21,16 +21,16 @@
 #include "geometry_msgs/msg/twist_with_covariance_stamped.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "tf2_ros/transform_broadcaster.h"
-#include "twist_to_odom/visibility_control.hpp"
+#include "twist2odom/visibility_control.hpp"
 
 
-namespace twist_to_odom
+namespace twist2odom
 {
 
-class TWIST_TO_ODOM_PUBLIC TwistToOdomNode : public rclcpp::Node
+class TWIST_TO_ODOM_PUBLIC Twist2OdomNode : public rclcpp::Node
 {
 public:
-  explicit TwistToOdomNode(const rclcpp::NodeOptions & options);
+  explicit Twist2OdomNode(const rclcpp::NodeOptions & options);
   void twistWithCovarianceCallback(
     const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg);
 
@@ -44,6 +44,6 @@ private:
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
   std::shared_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 };
-}  // namespace twist_to_odom
+}  // namespace twist2odom
 
 #endif  // TWIST_TO_ODOM__TWIST_TO_ODOM_NODE_HPP_

@@ -1,4 +1,4 @@
-# twist_to_odom
+# twist2odom
 <!-- Required -->
 <!-- Package description -->
 Converts TwistWithCovarianceStamped to Odometry.
@@ -11,7 +11,7 @@ Converts TwistWithCovarianceStamped to Odometry.
 
 ```bash
 rosdep install --from-paths src --ignore-src -y
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=On --packages-up-to twist_to_odom
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=On --packages-up-to twist2odom
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DCMAKE_E
     - Exposed API (example service/action call. -->
 
 ```bash
-ros2 launch twist_to_odom twist_to_odom.launch.py
+ros2 launch twist2odom twist2odom.launch.py
 ```
 
 ## API

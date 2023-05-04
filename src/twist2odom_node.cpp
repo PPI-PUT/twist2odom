@@ -14,13 +14,13 @@
 
 #include <cmath>
 
-#include "twist_to_odom/twist_to_odom_node.hpp"
+#include "twist2odom/twist2odom_node.hpp"
 
-namespace twist_to_odom
+namespace twist2odom
 {
 
-TwistToOdomNode::TwistToOdomNode(const rclcpp::NodeOptions & options)
-:  Node("twist_to_odom", options)
+Twist2OdomNode::Twist2OdomNode(const rclcpp::NodeOptions & options)
+:  Node("twist2odom", options)
 {
   publish_tf_ = this->declare_parameter("publish_tf", false);
   odom_.pose.covariance[0] = 0.000036;
@@ -28,13 +28,13 @@ TwistToOdomNode::TwistToOdomNode(const rclcpp::NodeOptions & options)
   odom_.pose.covariance[35] = 0.0009;
   twist_with_covariance_sub_ = this->create_subscription<
     geometry_msgs::msg::TwistWithCovarianceStamped>(
-    "twist_with_covariance", 1,
-    std::bind(&TwistToOdomNode::twistWithCovarianceCallback, this, std::placeholders::_1));
-  odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("odometry", 1);
+    "input/twist_with_covariance", 1,
+    std::bind(&Twist2OdomNode::twistWithCovarianceCallback, this, std::placeholders::_1));
+  odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("output/odometry", 1);
   tf_broadcaster_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
 }
 
-void TwistToOdomNode::twistWithCovarianceCallback(
+void Twist2OdomNode::twistWithCovarianceCallback(
   const geometry_msgs::msg::TwistWithCovarianceStamped::SharedPtr msg)
 {
   if (last_time_.seconds() == 0) {
@@ -69,8 +69,8 @@ void TwistToOdomNode::twistWithCovarianceCallback(
   }
 }
 
-}  // namespace twist_to_odom
+}  // namespace twist2odom
 
 #include "rclcpp_components/register_node_macro.hpp"
 
-RCLCPP_COMPONENTS_REGISTER_NODE(twist_to_odom::TwistToOdomNode)
+RCLCPP_COMPONENTS_REGISTER_NODE(twist2odom::Twist2OdomNode)
