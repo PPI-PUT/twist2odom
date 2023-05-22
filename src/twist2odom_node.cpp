@@ -23,6 +23,8 @@ Twist2OdomNode::Twist2OdomNode(const rclcpp::NodeOptions & options)
 :  Node("twist2odom", options)
 {
   publish_tf_ = this->declare_parameter("publish_tf", false);
+  base_frame_id_ = this->declare_parameter("base_frame_id", "base_footprint");
+  odom_frame_id_ = this->declare_parameter("odom_frame_id", "odom");
   odom_.pose.covariance[0] = 0.000036;
   odom_.pose.covariance[7] = 0.000036;
   odom_.pose.covariance[35] = 0.0009;
@@ -48,8 +50,8 @@ void Twist2OdomNode::twistWithCovarianceCallback(
   yaw_ += msg->twist.twist.angular.z * dt;
 
   odom_.header.stamp = msg->header.stamp;
-  odom_.header.frame_id = "odom";
-  odom_.child_frame_id = "base_link";
+  odom_.header.frame_id = odom_frame_id_;
+  odom_.child_frame_id = base_frame_id_;
   odom_.twist = msg->twist;
   odom_.pose.pose.position.x += msg->twist.twist.linear.x * cos(yaw_) * dt;
   odom_.pose.pose.position.y += msg->twist.twist.linear.x * sin(yaw_) * dt;

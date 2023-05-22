@@ -36,6 +36,8 @@ public:
 
 private:
   bool publish_tf_{false};
+  std::string base_frame_id_{"base_footprint"};
+  std::string odom_frame_id_{"odom"};
   double yaw_{0.0};
   nav_msgs::msg::Odometry odom_;
   rclcpp::Time last_time_;

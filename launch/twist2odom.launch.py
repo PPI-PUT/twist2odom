@@ -25,7 +25,9 @@ def launch_setup(context, *args, **kwargs):
         package='twist2odom',
         executable='twist2odom_node_exe',
         parameters=[{
-            'publish_tf': LaunchConfiguration('publish_tf')
+            'publish_tf': LaunchConfiguration('publish_tf'),
+            'base_frame_id': LaunchConfiguration('base_frame_id'),
+            'odom_frame_id': LaunchConfiguration('odom_frame_id')
         }],
         remappings=[
             ('input/twist_with_covariance', LaunchConfiguration('in_twist')),
@@ -50,6 +52,8 @@ def generate_launch_description():
     add_launch_arg('publish_tf', 'false')
     add_launch_arg('in_twist', 'in_twist')
     add_launch_arg('out_odom', 'out_odom')
+    add_launch_arg('base_frame_id', 'base_footprint')
+    add_launch_arg('odom_frame_id', 'odom')
 
     return LaunchDescription([
         *declared_arguments,
